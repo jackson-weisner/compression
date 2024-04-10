@@ -1,0 +1,21 @@
+[symcount size][symbol count][eof bit][sym][count][data]
+
+write a byte that determines
+count size
+
+
+
+
+
+
+
+
+
+ByteIO.cpp  
+FreqQueue.cpp  
+Tree.cpp  
+main.cpp
+
+ByteIO.h  
+FreqQueue.h  
+Tree.hh
