@@ -20,6 +20,7 @@ void compress(std::string from, std::string to) {
 
     fileInput.reset();
     fileOutput.write(fq);
+
     if (DEBUG) {
         for (auto a : fq) {
             std::cout << a->value << " " << a->count << std::endl;
@@ -42,7 +43,7 @@ void compress(std::string from, std::string to) {
     fileOutput.write(outputString);
 }
 
-void decompress(std::string from, std::string to) {
+void decompress(std::string from) {
     ByteReader fileInput(from);
     FreqQueue fq;
 
@@ -73,7 +74,6 @@ void decompress(std::string from, std::string to) {
     
     std::bitset<8> charBits;
     std::string binString, searchString = "";
-    std::cout << "\n\n============\n";
     while (!fileInput.eof()) {
         charBits = std::bitset<8>(fileInput.read<char>());
         for (int j = 7; j >= 0; --j) {
@@ -91,7 +91,11 @@ void decompress(std::string from, std::string to) {
 }
 
 int main(int argc, char** argv) {
-    compress(argv[1], argv[2]);
-    decompress(argv[2], "test");
+    std::string mode = argv[1];
+    if (mode == "-c") {
+        compress(argv[2], argv[3]);
+    } else if (mode == "-d") {
+        decompress(argv[2]);
+    }
     return 0;
 }
