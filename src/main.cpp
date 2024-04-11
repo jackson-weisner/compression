@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <string>
 
+const bool DEBUG = false;
+
 inline std::string readSymbol(ByteReader& fileInput) {
     return std::string(1, fileInput.read<char>()); 
 }
@@ -18,6 +20,11 @@ void compress(std::string from, std::string to) {
 
     fileInput.reset();
     fileOutput.write(fq);
+    if (DEBUG) {
+        for (auto a : fq) {
+            std::cout << a->value << " " << a->count << std::endl;
+        }
+    }
 
     const short outputBufferLength = 8;
     std::string symbol, outputString = "";
@@ -55,8 +62,10 @@ void decompress(std::string from, std::string to) {
         }
         fq.push(new Node(value, nodeCount));
     }
-    for (auto a : fq) {
-        std::cout << a->count << std::endl;
+    if (DEBUG) {
+        for (auto a : fq) {
+            std::cout << a->value << " " << a->count << std::endl;
+        }
     }
 
     Tree t(fq);

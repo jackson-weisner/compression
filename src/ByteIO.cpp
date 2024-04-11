@@ -53,7 +53,7 @@ void ByteWriter::write(FreqQueue data) {
         if (countByteSize == 1) {
             this->write<char, 1>(n->count);
         } else {
-            this->write<char, 4>(n->count);
+            this->write<int, 4>(n->count);
         }
     }
 }
