@@ -45,7 +45,7 @@ void ByteWriter::write(FreqQueue data) {
     std::string binString = "";
     this->write(countByteSize);
     this->write(data.size());
-    char curSymbol, eofSymbol = *data.eofSymbol.data();
+    char eofSymbol = *data.eofSymbol.data();
     this->write<char>(eofSymbol);
     this->write<char, 1>(1);
     for (auto n : data) {

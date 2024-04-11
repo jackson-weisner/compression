@@ -43,7 +43,7 @@ void compress(std::string from, std::string to) {
     fileOutput.write(outputString);
 }
 
-void decompress(std::string from) {
+void decompress(std::string from, std::string to) {
     ByteReader fileInput(from);
     FreqQueue fq;
 
@@ -71,7 +71,7 @@ void decompress(std::string from) {
 
     Tree t(fq);
     BinMap m = t.symbolCodes();
-    
+    std::ofstream outFile(to);
     std::bitset<8> charBits;
     std::string binString, searchString = "";
     while (!fileInput.eof()) {
@@ -83,19 +83,22 @@ void decompress(std::string from) {
             }
             Node::value_t found = t.search(binString);
             if (found != "") {
-                std::cout << found;
+                outFile << found;
                 binString = "";
             }
         }
     }
+    outFile.close();
 }
 
 int main(int argc, char** argv) {
     std::string mode = argv[1];
+    std::string from = argv[2];
+    std::string to = argv[3];
     if (mode == "-c") {
-        compress(argv[2], argv[3]);
+        compress(from, to);
     } else if (mode == "-d") {
-        decompress(argv[2]);
+        decompress(from, to);
     }
     return 0;
 }
