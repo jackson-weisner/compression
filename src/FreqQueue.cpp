@@ -6,6 +6,7 @@ FreqQueue::FreqQueue() : std::vector<Node*>() {
     this->max = 0;
 }
 
+// method to sort teh frequency queue
 void FreqQueue::sort() {
     std::sort(this->begin(), this->end(), 
         [](const Node* n1, const Node* n2) {
@@ -14,6 +15,7 @@ void FreqQueue::sort() {
     );
 }
 
+// method to check if the queue has a particular value
 Node* FreqQueue::has(Node::value_t v) {
     for (Node* n : *this) {
         if (n->value == v) return n;
@@ -21,10 +23,12 @@ Node* FreqQueue::has(Node::value_t v) {
     return nullptr;
 }
 
+// method to check if the queue has a particular node
 Node* FreqQueue::has(const Node* n) {
     return this->has(n->value);
 }
 
+// push a node onto the frequency queue
 void FreqQueue::push(Node* n) {
     Node* found = this->has(n);
     if (found == nullptr) {
@@ -35,6 +39,7 @@ void FreqQueue::push(Node* n) {
     }
 }
 
+// pop the top of the queue
 Node* FreqQueue::pop() {
     Node* n = this->back();
     this->pop_back();

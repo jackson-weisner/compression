@@ -56,6 +56,7 @@ void ByteIO<FileType>::close() {
     }
 }
 
+// read data from the file of a specific size
 template<typename T, size_t size = sizeof(T)>
 T ByteReader::read() {
     T data;
@@ -63,6 +64,7 @@ T ByteReader::read() {
     return data;
 }
 
+// write data of a specific size to the file
 template<typename T, size_t size = sizeof(T)>
 void ByteWriter::write(T data) {
     const int dataBitsSize = size * 8;

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+// constructor for a bytewriter
 ByteWriter::ByteWriter(std::string fileName) : ByteIO<std::ofstream>(fileName) {}
 
 ByteWriter::~ByteWriter() {
@@ -24,6 +25,7 @@ void ByteIO<std::ifstream>::open() {
     this->file.open(this->fileName, std::fstream::binary | std::fstream::in);
 }
 
+// write characters to the file
 template<>
 void ByteWriter::write<std::string>(std::string data) {
     std::string buffer = "";
@@ -40,6 +42,7 @@ void ByteWriter::write<std::string>(std::string data) {
     write((char)std::stoi(buffer, nullptr, 2));
 }
 
+// write data from the frequency queue to the file
 void ByteWriter::write(FreqQueue data) {
     char countByteSize = (data.max > INT8_MAX) ? 4 : 1; 
     std::string binString = "";
@@ -58,6 +61,7 @@ void ByteWriter::write(FreqQueue data) {
     }
 }
 
+// Read in symbols from the file and push them to the frequency queue 
 FreqQueue ByteReader::toFreqQueue() {
     FreqQueue fq;
     std::string s = "";

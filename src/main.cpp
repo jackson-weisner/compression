@@ -10,6 +10,7 @@ inline std::string readSymbol(ByteReader& fileInput) {
     return std::string(1, fileInput.read<char>()); 
 }
 
+// function to run the necessary steps for compression
 void compress(std::string from, std::string to) {
     ByteReader fileInput(from);
     ByteWriter fileOutput(to);
@@ -30,6 +31,7 @@ void compress(std::string from, std::string to) {
     const short outputBufferLength = 8;
     std::string symbol, outputString = "";
 
+    // read in all symbols from the input file
     while (!fileInput.eof()) {
         symbol = readSymbol(fileInput); 
         outputString += m[symbol];
@@ -43,6 +45,7 @@ void compress(std::string from, std::string to) {
     fileOutput.write(outputString);
 }
 
+// steps for decompression
 void decompress(std::string from, std::string to) {
     ByteReader fileInput(from);
     FreqQueue fq;
@@ -54,6 +57,7 @@ void decompress(std::string from, std::string to) {
     fileInput.read<char>();
     Node::count_t nodeCount;
     Node::value_t value;
+    // read all symbols from the file
     for (int i = 0; i < symbolCount; ++i) {
         value = readSymbol(fileInput);
         if (countByteSize == 1) {
@@ -74,6 +78,7 @@ void decompress(std::string from, std::string to) {
     std::ofstream outFile(to);
     std::bitset<8> charBits;
     std::string binString, searchString = "";
+    // output the characters to the decompressed file
     while (!fileInput.eof()) {
         charBits = std::bitset<8>(fileInput.read<char>());
         for (int j = 7; j >= 0; --j) {

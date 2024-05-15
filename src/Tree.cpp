@@ -1,6 +1,7 @@
 #include "Tree.h"
 #include <string>
 
+// constructor that populated the tree based on the frequency queue
 Tree::Tree(FreqQueue fq) {
     Node *n1, *n2 = nullptr;
     while (fq.size() > 1) {
@@ -13,11 +14,13 @@ Tree::Tree(FreqQueue fq) {
     this->root = fq.pop();
 }
 
+// return a map of the symbol codes from the tree
 BinMap Tree::symbolCodes() {
     BinMap m = {};
     return Tree::symbolCodes(this->root, "", m);
 }
 
+// recursive function to get the codes from the tree
 BinMap Tree::symbolCodes(Node* n, std::string bits, BinMap& m) {
     if (n->left == nullptr && n->right == nullptr) {
         m[n->value] = bits;
